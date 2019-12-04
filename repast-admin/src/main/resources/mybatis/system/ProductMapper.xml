@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.repast.admin.project.system.product.mapper.ProductMapper">
+    
+    <resultMap type="Product" id="ProductResult">
+        <result property="id"    column="id"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="brandId"    column="brand_id"    />
+        <result property="productCategoryId"    column="product_category_id"    />
+        <result property="productAttributeCategoryId"    column="product_attribute_category_id"    />
+        <result property="name"    column="name"    />
+        <result property="pic"    column="pic"    />
+        <result property="productSn"    column="product_sn"    />
+        <result property="deleteStatus"    column="delete_status"    />
+        <result property="publishStatus"    column="publish_status"    />
+        <result property="newStatus"    column="new_status"    />
+        <result property="recommandStatus"    column="recommand_status"    />
+        <result property="sort"    column="sort"    />
+        <result property="sale"    column="sale"    />
+        <result property="price"    column="price"    />
+        <result property="promotionPrice"    column="promotion_price"    />
+        <result property="giftPoint"    column="gift_point"    />
+        <result property="subTitle"    column="sub_title"    />
+        <result property="description"    column="description"    />
+        <result property="originalPrice"    column="original_price"    />
+        <result property="stock"    column="stock"    />
+        <result property="lowStock"    column="low_stock"    />
+        <result property="unit"    column="unit"    />
+        <result property="weight"    column="weight"    />
+        <result property="serviceIds"    column="service_ids"    />
+        <result property="keywords"    column="keywords"    />
+        <result property="note"    column="note"    />
+        <result property="albumId"    column="album_id"    />
+        <result property="detailTitle"    column="detail_title"    />
+        <result property="detailDesc"    column="detail_desc"    />
+        <result property="detailHtml"    column="detail_html"    />
+        <result property="detailMobileHtml"    column="detail_mobile_html"    />
+        <result property="promotionStartTime"    column="promotion_start_time"    />
+        <result property="promotionEndTime"    column="promotion_end_time"    />
+        <result property="promotionPerLimit"    column="promotion_per_limit"    />
+        <result property="promotionType"    column="promotion_type"    />
+        <result property="brandName"    column="brand_name"    />
+        <result property="productCategoryName"    column="product_category_name"    />
+        <result property="currency"    column="currency"    />
+    </resultMap>
+	
+	<sql id="selectProductVo">
+        select id, shop_id, brand_id, product_category_id, product_attribute_category_id, name, pic, product_sn, delete_status, publish_status, new_status, recommand_status, sort, sale, price, promotion_price, gift_point, sub_title, description, original_price, stock, low_stock, unit, weight, service_ids, keywords, note, album_id, detail_title, detail_desc, detail_html, detail_mobile_html, promotion_start_time, promotion_end_time, promotion_per_limit, promotion_type, brand_name, product_category_name, currency from pms_product
+    </sql>
+	
+    <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="shopId != null "> and shop_id = #{shopId}</if>
+             <if test="brandId != null "> and brand_id = #{brandId}</if>
+             <if test="productCategoryId != null "> and product_category_id = #{productCategoryId}</if>
+             <if test="productAttributeCategoryId != null "> and product_attribute_category_id = #{productAttributeCategoryId}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="pic != null  and pic != '' "> and pic = #{pic}</if>
+             <if test="productSn != null  and productSn != '' "> and product_sn = #{productSn}</if>
+             <if test="deleteStatus != null "> and delete_status = #{deleteStatus}</if>
+             <if test="publishStatus != null "> and publish_status = #{publishStatus}</if>
+             <if test="newStatus != null "> and new_status = #{newStatus}</if>
+             <if test="recommandStatus != null "> and recommand_status = #{recommandStatus}</if>
+             <if test="sort != null "> and sort = #{sort}</if>
+             <if test="sale != null "> and sale = #{sale}</if>
+             <if test="price != null "> and price = #{price}</if>
+             <if test="promotionPrice != null "> and promotion_price = #{promotionPrice}</if>
+             <if test="giftPoint != null "> and gift_point = #{giftPoint}</if>
+             <if test="subTitle != null  and subTitle != '' "> and sub_title = #{subTitle}</if>
+             <if test="description != null  and description != '' "> and description = #{description}</if>
+             <if test="originalPrice != null "> and original_price = #{originalPrice}</if>
+             <if test="stock != null "> and stock = #{stock}</if>
+             <if test="lowStock != null "> and low_stock = #{lowStock}</if>
+             <if test="unit != null  and unit != '' "> and unit = #{unit}</if>
+             <if test="weight != null "> and weight = #{weight}</if>
+             <if test="serviceIds != null  and serviceIds != '' "> and service_ids = #{serviceIds}</if>
+             <if test="keywords != null  and keywords != '' "> and keywords = #{keywords}</if>
+             <if test="note != null  and note != '' "> and note = #{note}</if>
+             <if test="albumId != null "> and album_id = #{albumId}</if>
+             <if test="detailTitle != null  and detailTitle != '' "> and detail_title = #{detailTitle}</if>
+             <if test="detailDesc != null  and detailDesc != '' "> and detail_desc = #{detailDesc}</if>
+             <if test="detailHtml != null  and detailHtml != '' "> and detail_html = #{detailHtml}</if>
+             <if test="detailMobileHtml != null  and detailMobileHtml != '' "> and detail_mobile_html = #{detailMobileHtml}</if>
+             <if test="promotionStartTime != null "> and promotion_start_time = #{promotionStartTime}</if>
+             <if test="promotionEndTime != null "> and promotion_end_time = #{promotionEndTime}</if>
+             <if test="promotionPerLimit != null "> and promotion_per_limit = #{promotionPerLimit}</if>
+             <if test="promotionType != null "> and promotion_type = #{promotionType}</if>
+             <if test="brandName != null  and brandName != '' "> and brand_name = #{brandName}</if>
+             <if test="productCategoryName != null  and productCategoryName != '' "> and product_category_name = #{productCategoryName}</if>
+             <if test="currency != null "> and currency = #{currency}</if>
+         </where>
+    </select>
+    
+    <select id="selectProductById" parameterType="Long" resultMap="ProductResult">
+        <include refid="selectProductVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProduct" parameterType="Product">
+        insert into pms_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="shopId != null  ">shop_id,</if>
+			<if test="brandId != null  ">brand_id,</if>
+			<if test="productCategoryId != null  ">product_category_id,</if>
+			<if test="productAttributeCategoryId != null  ">product_attribute_category_id,</if>
+			<if test="name != null  and name != ''  ">name,</if>
+			<if test="pic != null  and pic != ''  ">pic,</if>
+			<if test="productSn != null  and productSn != ''  ">product_sn,</if>
+			<if test="deleteStatus != null  ">delete_status,</if>
+			<if test="publishStatus != null  ">publish_status,</if>
+			<if test="newStatus != null  ">new_status,</if>
+			<if test="recommandStatus != null  ">recommand_status,</if>
+			<if test="sort != null  ">sort,</if>
+			<if test="sale != null  ">sale,</if>
+			<if test="price != null  ">price,</if>
+			<if test="promotionPrice != null  ">promotion_price,</if>
+			<if test="giftPoint != null  ">gift_point,</if>
+			<if test="subTitle != null  and subTitle != ''  ">sub_title,</if>
+			<if test="description != null  and description != ''  ">description,</if>
+			<if test="originalPrice != null  ">original_price,</if>
+			<if test="stock != null  ">stock,</if>
+			<if test="lowStock != null  ">low_stock,</if>
+			<if test="unit != null  and unit != ''  ">unit,</if>
+			<if test="weight != null  ">weight,</if>
+			<if test="serviceIds != null  and serviceIds != ''  ">service_ids,</if>
+			<if test="keywords != null  and keywords != ''  ">keywords,</if>
+			<if test="note != null  and note != ''  ">note,</if>
+			<if test="albumId != null  ">album_id,</if>
+			<if test="detailTitle != null  and detailTitle != ''  ">detail_title,</if>
+			<if test="detailDesc != null  and detailDesc != ''  ">detail_desc,</if>
+			<if test="detailHtml != null  and detailHtml != ''  ">detail_html,</if>
+			<if test="detailMobileHtml != null  and detailMobileHtml != ''  ">detail_mobile_html,</if>
+			<if test="promotionStartTime != null  ">promotion_start_time,</if>
+			<if test="promotionEndTime != null  ">promotion_end_time,</if>
+			<if test="promotionPerLimit != null  ">promotion_per_limit,</if>
+			<if test="promotionType != null  ">promotion_type,</if>
+			<if test="brandName != null  and brandName != ''  ">brand_name,</if>
+			<if test="productCategoryName != null  and productCategoryName != ''  ">product_category_name,</if>
+			<if test="currency != null  ">currency,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="shopId != null  ">#{shopId},</if>
+			<if test="brandId != null  ">#{brandId},</if>
+			<if test="productCategoryId != null  ">#{productCategoryId},</if>
+			<if test="productAttributeCategoryId != null  ">#{productAttributeCategoryId},</if>
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="pic != null  and pic != ''  ">#{pic},</if>
+			<if test="productSn != null  and productSn != ''  ">#{productSn},</if>
+			<if test="deleteStatus != null  ">#{deleteStatus},</if>
+			<if test="publishStatus != null  ">#{publishStatus},</if>
+			<if test="newStatus != null  ">#{newStatus},</if>
+			<if test="recommandStatus != null  ">#{recommandStatus},</if>
+			<if test="sort != null  ">#{sort},</if>
+			<if test="sale != null  ">#{sale},</if>
+			<if test="price != null  ">#{price},</if>
+			<if test="promotionPrice != null  ">#{promotionPrice},</if>
+			<if test="giftPoint != null  ">#{giftPoint},</if>
+			<if test="subTitle != null  and subTitle != ''  ">#{subTitle},</if>
+			<if test="description != null  and description != ''  ">#{description},</if>
+			<if test="originalPrice != null  ">#{originalPrice},</if>
+			<if test="stock != null  ">#{stock},</if>
+			<if test="lowStock != null  ">#{lowStock},</if>
+			<if test="unit != null  and unit != ''  ">#{unit},</if>
+			<if test="weight != null  ">#{weight},</if>
+			<if test="serviceIds != null  and serviceIds != ''  ">#{serviceIds},</if>
+			<if test="keywords != null  and keywords != ''  ">#{keywords},</if>
+			<if test="note != null  and note != ''  ">#{note},</if>
+			<if test="albumId != null  ">#{albumId},</if>
+			<if test="detailTitle != null  and detailTitle != ''  ">#{detailTitle},</if>
+			<if test="detailDesc != null  and detailDesc != ''  ">#{detailDesc},</if>
+			<if test="detailHtml != null  and detailHtml != ''  ">#{detailHtml},</if>
+			<if test="detailMobileHtml != null  and detailMobileHtml != ''  ">#{detailMobileHtml},</if>
+			<if test="promotionStartTime != null  ">#{promotionStartTime},</if>
+			<if test="promotionEndTime != null  ">#{promotionEndTime},</if>
+			<if test="promotionPerLimit != null  ">#{promotionPerLimit},</if>
+			<if test="promotionType != null  ">#{promotionType},</if>
+			<if test="brandName != null  and brandName != ''  ">#{brandName},</if>
+			<if test="productCategoryName != null  and productCategoryName != ''  ">#{productCategoryName},</if>
+			<if test="currency != null  ">#{currency},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProduct" parameterType="Product">
+        update pms_product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopId != null  ">shop_id = #{shopId},</if>
+            <if test="brandId != null  ">brand_id = #{brandId},</if>
+            <if test="productCategoryId != null  ">product_category_id = #{productCategoryId},</if>
+            <if test="productAttributeCategoryId != null  ">product_attribute_category_id = #{productAttributeCategoryId},</if>
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="pic != null  and pic != ''  ">pic = #{pic},</if>
+            <if test="productSn != null  and productSn != ''  ">product_sn = #{productSn},</if>
+            <if test="deleteStatus != null  ">delete_status = #{deleteStatus},</if>
+            <if test="publishStatus != null  ">publish_status = #{publishStatus},</if>
+            <if test="newStatus != null  ">new_status = #{newStatus},</if>
+            <if test="recommandStatus != null  ">recommand_status = #{recommandStatus},</if>
+            <if test="sort != null  ">sort = #{sort},</if>
+            <if test="sale != null  ">sale = #{sale},</if>
+            <if test="price != null  ">price = #{price},</if>
+            <if test="promotionPrice != null  ">promotion_price = #{promotionPrice},</if>
+            <if test="giftPoint != null  ">gift_point = #{giftPoint},</if>
+            <if test="subTitle != null  and subTitle != ''  ">sub_title = #{subTitle},</if>
+            <if test="description != null  and description != ''  ">description = #{description},</if>
+            <if test="originalPrice != null  ">original_price = #{originalPrice},</if>
+            <if test="stock != null  ">stock = #{stock},</if>
+            <if test="lowStock != null  ">low_stock = #{lowStock},</if>
+            <if test="unit != null  and unit != ''  ">unit = #{unit},</if>
+            <if test="weight != null  ">weight = #{weight},</if>
+            <if test="serviceIds != null  and serviceIds != ''  ">service_ids = #{serviceIds},</if>
+            <if test="keywords != null  and keywords != ''  ">keywords = #{keywords},</if>
+            <if test="note != null  and note != ''  ">note = #{note},</if>
+            <if test="albumId != null  ">album_id = #{albumId},</if>
+            <if test="detailTitle != null  and detailTitle != ''  ">detail_title = #{detailTitle},</if>
+            <if test="detailDesc != null  and detailDesc != ''  ">detail_desc = #{detailDesc},</if>
+            <if test="detailHtml != null  and detailHtml != ''  ">detail_html = #{detailHtml},</if>
+            <if test="detailMobileHtml != null  and detailMobileHtml != ''  ">detail_mobile_html = #{detailMobileHtml},</if>
+            <if test="promotionStartTime != null  ">promotion_start_time = #{promotionStartTime},</if>
+            <if test="promotionEndTime != null  ">promotion_end_time = #{promotionEndTime},</if>
+            <if test="promotionPerLimit != null  ">promotion_per_limit = #{promotionPerLimit},</if>
+            <if test="promotionType != null  ">promotion_type = #{promotionType},</if>
+            <if test="brandName != null  and brandName != ''  ">brand_name = #{brandName},</if>
+            <if test="productCategoryName != null  and productCategoryName != ''  ">product_category_name = #{productCategoryName},</if>
+            <if test="currency != null  ">currency = #{currency},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteProductById" parameterType="Long">
+        delete from pms_product where id = #{id}
+    </delete>
+	
+    <delete id="deleteProductByIds" parameterType="String">
+        delete from pms_product where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,422 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								店铺ID：<input type="text" name="shopId"/>
+							</li>
+
+							<li>
+								品牌ID：<input type="text" name="brandId"/>
+							</li>
+
+							<li>
+								产品类别ID：<input type="text" name="productCategoryId"/>
+							</li>
+
+							<li>
+								产品属性类别ID：<input type="text" name="productAttributeCategoryId"/>
+							</li>
+
+							<li>
+								：<input type="text" name="name"/>
+							</li>
+
+							<li>
+								：<input type="text" name="pic"/>
+							</li>
+
+							<li>
+								货号：<input type="text" name="productSn"/>
+							</li>
+
+							<li>
+								删除状态：0->未删除；1->已删除：<input type="text" name="deleteStatus"/>
+							</li>
+
+							<li>
+								上架状态：0->下架；1->上架：<input type="text" name="publishStatus"/>
+							</li>
+
+							<li>
+								新品状态:0->不是新品；1->新品：<input type="text" name="newStatus"/>
+							</li>
+
+							<li>
+								推荐状态；0->不推荐；1->推荐：<input type="text" name="recommandStatus"/>
+							</li>
+
+							<li>
+								排序：<input type="text" name="sort"/>
+							</li>
+
+							<li>
+								销量：<input type="text" name="sale"/>
+							</li>
+
+							<li>
+								：<input type="text" name="price"/>
+							</li>
+
+							<li>
+								促销价格：<input type="text" name="promotionPrice"/>
+							</li>
+
+							<li>
+								赠送的积分：<input type="text" name="giftPoint"/>
+							</li>
+
+							<li>
+								副标题：<input type="text" name="subTitle"/>
+							</li>
+
+							<li>
+								商品描述：<input type="text" name="description"/>
+							</li>
+
+							<li>
+								市场价：<input type="text" name="originalPrice"/>
+							</li>
+
+							<li>
+								库存：<input type="text" name="stock"/>
+							</li>
+
+							<li>
+								库存预警值：<input type="text" name="lowStock"/>
+							</li>
+
+							<li>
+								单位：<input type="text" name="unit"/>
+							</li>
+
+							<li>
+								商品重量，默认为克：<input type="text" name="weight"/>
+							</li>
+
+							<li>
+								以逗号分割的产品服务：1->无忧退货；2->快速退款；3->免费包邮：<input type="text" name="serviceIds"/>
+							</li>
+
+							<li>
+								：<input type="text" name="keywords"/>
+							</li>
+
+							<li>
+								：<input type="text" name="note"/>
+							</li>
+
+							<li>
+								画册id：<input type="text" name="albumId"/>
+							</li>
+
+							<li>
+								：<input type="text" name="detailTitle"/>
+							</li>
+
+							<li>
+								：<input type="text" name="detailDesc"/>
+							</li>
+
+							<li>
+								产品详情网页内容：<input type="text" name="detailHtml"/>
+							</li>
+
+							<li>
+								移动端网页详情：<input type="text" name="detailMobileHtml"/>
+							</li>
+
+							<li>
+								促销开始时间：<input type="text" name="promotionStartTime"/>
+							</li>
+
+							<li>
+								促销结束时间：<input type="text" name="promotionEndTime"/>
+							</li>
+
+							<li>
+								活动限购数量：<input type="text" name="promotionPerLimit"/>
+							</li>
+
+							<li>
+								促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购：<input type="text" name="promotionType"/>
+							</li>
+
+							<li>
+								品牌名称：<input type="text" name="brandName"/>
+							</li>
+
+							<li>
+								商品分类名称：<input type="text" name="productCategoryName"/>
+							</li>
+
+							<li>
+								币种，0-> 人民币;  1-> 积分：<input type="text" name="currency"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:product:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:product:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:product:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:product:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:product:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:product:remove')}]];
+        var prefix = ctx + "system/product";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "商品",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '',
+					visible: false
+				},
+				{
+					field : 'shopId', 
+					title : '店铺ID',
+					sortable: true
+				},
+				{
+					field : 'brandId', 
+					title : '品牌ID',
+					sortable: true
+				},
+				{
+					field : 'productCategoryId', 
+					title : '产品类别ID',
+					sortable: true
+				},
+				{
+					field : 'productAttributeCategoryId', 
+					title : '产品属性类别ID',
+					sortable: true
+				},
+				{
+					field : 'name', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'pic', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'productSn', 
+					title : '货号',
+					sortable: true
+				},
+				{
+					field : 'deleteStatus', 
+					title : '删除状态：0->未删除；1->已删除',
+					sortable: true
+				},
+				{
+					field : 'publishStatus', 
+					title : '上架状态：0->下架；1->上架',
+					sortable: true
+				},
+				{
+					field : 'newStatus', 
+					title : '新品状态:0->不是新品；1->新品',
+					sortable: true
+				},
+				{
+					field : 'recommandStatus', 
+					title : '推荐状态；0->不推荐；1->推荐',
+					sortable: true
+				},
+				{
+					field : 'sort', 
+					title : '排序',
+					sortable: true
+				},
+				{
+					field : 'sale', 
+					title : '销量',
+					sortable: true
+				},
+				{
+					field : 'price', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'promotionPrice', 
+					title : '促销价格',
+					sortable: true
+				},
+				{
+					field : 'giftPoint', 
+					title : '赠送的积分',
+					sortable: true
+				},
+				{
+					field : 'subTitle', 
+					title : '副标题',
+					sortable: true
+				},
+				{
+					field : 'description', 
+					title : '商品描述',
+					sortable: true
+				},
+				{
+					field : 'originalPrice', 
+					title : '市场价',
+					sortable: true
+				},
+				{
+					field : 'stock', 
+					title : '库存',
+					sortable: true
+				},
+				{
+					field : 'lowStock', 
+					title : '库存预警值',
+					sortable: true
+				},
+				{
+					field : 'unit', 
+					title : '单位',
+					sortable: true
+				},
+				{
+					field : 'weight', 
+					title : '商品重量，默认为克',
+					sortable: true
+				},
+				{
+					field : 'serviceIds', 
+					title : '以逗号分割的产品服务：1->无忧退货；2->快速退款；3->免费包邮',
+					sortable: true
+				},
+				{
+					field : 'keywords', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'note', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'albumId', 
+					title : '画册id',
+					sortable: true
+				},
+				{
+					field : 'detailTitle', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'detailDesc', 
+					title : '',
+					sortable: true
+				},
+				{
+					field : 'detailHtml', 
+					title : '产品详情网页内容',
+					sortable: true
+				},
+				{
+					field : 'detailMobileHtml', 
+					title : '移动端网页详情',
+					sortable: true
+				},
+				{
+					field : 'promotionStartTime', 
+					title : '促销开始时间',
+					sortable: true
+				},
+				{
+					field : 'promotionEndTime', 
+					title : '促销结束时间',
+					sortable: true
+				},
+				{
+					field : 'promotionPerLimit', 
+					title : '活动限购数量',
+					sortable: true
+				},
+				{
+					field : 'promotionType', 
+					title : '促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购',
+					sortable: true
+				},
+				{
+					field : 'brandName', 
+					title : '品牌名称',
+					sortable: true
+				},
+				{
+					field : 'productCategoryName', 
+					title : '商品分类名称',
+					sortable: true
+				},
+				{
+					field : 'currency', 
+					title : '币种，0-> 人民币;  1-> 积分',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
