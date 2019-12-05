@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-coupon-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">店铺id：</label>
+				<div class="col-sm-8">
+					<input id="shopId" name="shopId" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">优惠卷类型</label>
+				<div class="col-sm-8">
+					<select name="" lay-verify="">
+						<option value="0">全场赠券</option>
+						<option value="1">会员赠券</option>
+						<option value="2">购物赠券</option>
+						<option value="3">注册赠券</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">name：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用平台：</label>
+				<div class="col-sm-8">
+					<select name="" lay-verify="">
+						<option value="0">全部</option>
+						<option value="1">移动</option>
+						<option value="2">PC</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">数量：</label>
+				<div class="col-sm-8">
+					<input id="count" name="count" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">金额：</label>
+				<div class="col-sm-8">
+					<input id="amount" name="amount" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">每人限领张数：</label>
+				<div class="col-sm-8">
+					<input id="perLimit" name="perLimit" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用门槛：</label>
+				<div class="col-sm-8">
+					<input id="minPoint" name="minPoint" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">开始时间：</label>
+				<div class="col-sm-8">
+					<input id="startTime" name="startTime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">结束时间：</label>
+				<div class="col-sm-8">
+					<input id="endTime" name="endTime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用类型</label>
+				<div class="col-sm-8">
+					<select name="" lay-verify="">
+						<option value="0">全场通用</option>
+						<option value="1">指定分类</option>
+						<option value="2">指定商品</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="note" name="note" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发行数量：</label>
+				<div class="col-sm-8">
+					<input id="publishCount" name="publishCount" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">已使用数量：</label>
+				<div class="col-sm-8">
+					<input id="useCount" name="useCount" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">领取数量：</label>
+				<div class="col-sm-8">
+					<input id="receiveCount" name="receiveCount" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">可以领取的日期：</label>
+				<div class="col-sm-8">
+					<input id="enableTime" name="enableTime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">优惠码：</label>
+				<div class="col-sm-8">
+					<input id="code" name="code" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">可领取的会员类型：</label>
+				<div class="col-sm-8">
+					<input id="memberLevel" name="memberLevel" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/coupon"
+		$("#form-coupon-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-coupon-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

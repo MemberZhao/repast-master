@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-coupon-edit" th:object="${coupon}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="shopId" name="shopId" th:field="*{shopId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">优惠卷类型；0->全场赠券；1->会员赠券；2->购物赠券；3->注册赠券：</label>
+				<div class="col-sm-8">
+					<input id="type" name="type" th:field="*{type}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" th:field="*{name}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用平台：0->全部；1->移动；2->PC：</label>
+				<div class="col-sm-8">
+					<input id="platform" name="platform" th:field="*{platform}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">数量：</label>
+				<div class="col-sm-8">
+					<input id="count" name="count" th:field="*{count}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">金额：</label>
+				<div class="col-sm-8">
+					<input id="amount" name="amount" th:field="*{amount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">每人限领张数：</label>
+				<div class="col-sm-8">
+					<input id="perLimit" name="perLimit" th:field="*{perLimit}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用门槛；0表示无门槛：</label>
+				<div class="col-sm-8">
+					<input id="minPoint" name="minPoint" th:field="*{minPoint}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="startTime" name="startTime" th:field="*{startTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="endTime" name="endTime" th:field="*{endTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">使用类型：0->全场通用；1->指定分类；2->指定商品：</label>
+				<div class="col-sm-8">
+					<input id="useType" name="useType" th:field="*{useType}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="note" name="note" th:field="*{note}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发行数量：</label>
+				<div class="col-sm-8">
+					<input id="publishCount" name="publishCount" th:field="*{publishCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">已使用数量：</label>
+				<div class="col-sm-8">
+					<input id="useCount" name="useCount" th:field="*{useCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">领取数量：</label>
+				<div class="col-sm-8">
+					<input id="receiveCount" name="receiveCount" th:field="*{receiveCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">可以领取的日期：</label>
+				<div class="col-sm-8">
+					<input id="enableTime" name="enableTime" th:field="*{enableTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">优惠码：</label>
+				<div class="col-sm-8">
+					<input id="code" name="code" th:field="*{code}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">可领取的会员类型：0->无限时：</label>
+				<div class="col-sm-8">
+					<input id="memberLevel" name="memberLevel" th:field="*{memberLevel}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/coupon"
+		$("#form-coupon-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-coupon-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

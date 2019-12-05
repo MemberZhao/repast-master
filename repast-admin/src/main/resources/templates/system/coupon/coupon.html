@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:coupon:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:coupon:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:coupon:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:coupon:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:coupon:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:coupon:remove')}]];
+        var prefix = ctx + "system/coupon";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "优惠卷",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : 'id',
+					visible: false
+				},
+				{
+					field : 'shopId', 
+					title : '店铺id',
+					sortable: true
+				},
+				{
+					field : 'type', 
+					title : '优惠卷类型',
+					sortable: true
+				},
+				{
+					field : 'name', 
+					title : '名称',
+					sortable: true
+				},
+				{
+					field : 'platform', 
+					title : '使用平台',
+					sortable: true
+				},
+				{
+					field : 'count', 
+					title : '数量',
+					sortable: true
+				},
+				{
+					field : 'amount', 
+					title : '金额',
+					sortable: true
+				},
+				{
+					field : 'perLimit', 
+					title : '每人限领张数',
+					sortable: true
+				},
+				{
+					field : 'minPoint', 
+					title : '使用门槛',
+					sortable: true
+				},
+				{
+					field : 'startTime', 
+					title : '开始时间',
+					sortable: true
+				},
+				{
+					field : 'endTime', 
+					title : '结束时间',
+					sortable: true
+				},
+				{
+					field : 'useType', 
+					title : '使用类型',
+					sortable: true
+				},
+				{
+					field : 'note', 
+					title : '备注',
+					sortable: true
+				},
+				{
+					field : 'publishCount', 
+					title : '发行数量',
+					sortable: true
+				},
+				{
+					field : 'useCount', 
+					title : '已使用数量',
+					sortable: true
+				},
+				{
+					field : 'receiveCount', 
+					title : '领取数量',
+					sortable: true
+				},
+				{
+					field : 'enableTime', 
+					title : '可以领取的日期',
+					sortable: true
+				},
+				{
+					field : 'code', 
+					title : '优惠码',
+					sortable: true
+				},
+				{
+					field : 'memberLevel', 
+					title : '可领取的会员类型',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
