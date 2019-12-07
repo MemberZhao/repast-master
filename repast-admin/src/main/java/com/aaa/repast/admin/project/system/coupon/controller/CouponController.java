@@ -100,18 +100,7 @@ public class CouponController extends BaseController
 		mmap.put("coupon", coupon);
 	    return prefix + "/edit";
 	}
-	
-	/**
-	 * 修改保存优惠卷
-	 */
-	@RequiresPermissions("system:coupon:edit")
-	@Log(title = "优惠卷", businessType = BusinessType.UPDATE)
-	@PostMapping("/edit")
-	@ResponseBody
-	public AjaxResult editSave(Coupon coupon)
-	{		
-		return toAjax(couponService.updateCoupon(coupon));
-	}
+
 	
 	/**
 	 * 删除优惠卷

@@ -34,14 +34,7 @@ public interface ICouponService
      * @return 结果
      */
 	public int insertCoupon(Coupon coupon);
-	
-	/**
-     * 修改优惠卷
-     * 
-     * @param coupon 优惠卷信息
-     * @return 结果
-     */
-	public int updateCoupon(Coupon coupon);
+
 		
 	/**
      * 删除优惠卷信息

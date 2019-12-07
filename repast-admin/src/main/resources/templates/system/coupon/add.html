@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head th:include="include :: header">
+	<link rel="stylesheet" href="/static/build/layui.css" media="all">
+</head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-coupon-add">
@@ -14,7 +16,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">优惠卷类型</label>
 				<div class="col-sm-8">
-					<select name="" lay-verify="">
+					<select name="type" class="form-control">
 						<option value="0">全场赠券</option>
 						<option value="1">会员赠券</option>
 						<option value="2">购物赠券</option>
@@ -31,7 +33,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">使用平台：</label>
 				<div class="col-sm-8">
-					<select name="" lay-verify="">
+					<select name="platform" class="form-control">
 						<option value="0">全部</option>
 						<option value="1">移动</option>
 						<option value="2">PC</option>
@@ -57,27 +59,32 @@
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">使用门槛：</label>
+				<label class="col-sm-3 control-label">使用门槛 0->无限制：</label>
 				<div class="col-sm-8">
 					<input id="minPoint" name="minPoint" class="form-control" type="text">
 				</div>
 			</div>
-			<div class="form-group">	
+			<div class="form-group">
 				<label class="col-sm-3 control-label">开始时间：</label>
 				<div class="col-sm-8">
-					<input id="startTime" name="startTime" class="form-control" type="text">
+					<div class="input-group date"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input type="text" id="startTime" name="startTime" class="form-control layui-input" value="2018-04-20 00:00:00">
+					</div>
 				</div>
 			</div>
+
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">结束时间：</label>
 				<div class="col-sm-8">
-					<input id="endTime" name="endTime" class="form-control" type="text">
+					<div class="input-group date"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input type="text" id="endTime" name="endTime" class="form-control" value="2018-04-20 00:00:00">
+					</div>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">使用类型</label>
 				<div class="col-sm-8">
-					<select name="" lay-verify="">
+					<select name="useType" class="form-control">
 						<option value="0">全场通用</option>
 						<option value="1">指定分类</option>
 						<option value="2">指定商品</option>
@@ -88,18 +95,6 @@
 				<label class="col-sm-3 control-label">备注：</label>
 				<div class="col-sm-8">
 					<input id="note" name="note" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">发行数量：</label>
-				<div class="col-sm-8">
-					<input id="publishCount" name="publishCount" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">已使用数量：</label>
-				<div class="col-sm-8">
-					<input id="useCount" name="useCount" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -121,7 +116,7 @@
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">可领取的会员类型：</label>
+				<label class="col-sm-3 control-label">可领取的会员类型：0->无限制：</label>
 				<div class="col-sm-8">
 					<input id="memberLevel" name="memberLevel" class="form-control" type="text">
 				</div>
@@ -144,6 +139,23 @@
 	            $.operate.save(prefix + "/add", $('#form-coupon-add').serialize());
 	        }
 	    }
+	</script>
+	<script src="/static/build/layui.js"></script>
+	<script>
+		layui.use('laydate', function(){
+			var laydate = layui.laydate;
+			//执行一个laydate实例
+			laydate.render({
+				elem: '#startTime' //指定元素
+				,type: 'datetime'
+			});
+
+			laydate.render({
+				elem: '#endTime' //指定元素
+				,type: 'datetime'
+			});
+
+		});
 	</script>
 </body>
 </html>

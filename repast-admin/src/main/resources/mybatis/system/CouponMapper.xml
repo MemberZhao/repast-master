@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.repast.admin.project.system.coupon.mapper.CouponMapper">
     
-    <resultMap type="Coupon" id="CouponResult">
+    <resultMap type="com.aaa.repast.admin.project.system.coupon.domain.Coupon" id="CouponResult">
         <result property="id"    column="id"    />
         <result property="shopId"    column="shop_id"    />
         <result property="type"    column="type"    />
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, shop_id, type, name, platform, count, amount, per_limit, min_point, start_time, end_time, use_type, note, publish_count, use_count, receive_count, enable_time, code, member_level from sms_coupon
     </sql>
 	
-    <select id="selectCouponList" parameterType="Coupon" resultMap="CouponResult">
+    <select id="selectCouponList" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon" resultMap="CouponResult">
         <include refid="selectCouponVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 select * from sms_coupon where id=#{id}
     </select>
         
-    <insert id="insertCoupon" parameterType="Coupon">
+    <insert id="createCoupon" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon" useGeneratedKeys="true" keyProperty="id">
         insert into sms_coupon
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null  ">id,</if>
@@ -106,33 +106,8 @@ select * from sms_coupon where id=#{id}
 			<if test="memberLevel != null  ">#{memberLevel},</if>
          </trim>
     </insert>
-	 
-    <update id="updateCoupon" parameterType="Coupon">
-        update sms_coupon
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="shopId != null  ">shop_id = #{shopId},</if>
-            <if test="type != null  ">type = #{type},</if>
-            <if test="name != null  and name != ''  ">name = #{name},</if>
-            <if test="platform != null  ">platform = #{platform},</if>
-            <if test="count != null  ">count = #{count},</if>
-            <if test="amount != null  ">amount = #{amount},</if>
-            <if test="perLimit != null  ">per_limit = #{perLimit},</if>
-            <if test="minPoint != null  ">min_point = #{minPoint},</if>
-            <if test="startTime != null  ">start_time = #{startTime},</if>
-            <if test="endTime != null  ">end_time = #{endTime},</if>
-            <if test="useType != null  ">use_type = #{useType},</if>
-            <if test="note != null  and note != ''  ">note = #{note},</if>
-            <if test="publishCount != null  ">publish_count = #{publishCount},</if>
-            <if test="useCount != null  ">use_count = #{useCount},</if>
-            <if test="receiveCount != null  ">receive_count = #{receiveCount},</if>
-            <if test="enableTime != null  ">enable_time = #{enableTime},</if>
-            <if test="code != null  and code != ''  ">code = #{code},</if>
-            <if test="memberLevel != null  ">member_level = #{memberLevel},</if>
-        </trim>
-        where id = #{id}
-    </update>
 
-	<delete id="deleteCouponById" parameterType="Long">
+	<delete id="deleteCouponById" parameterType="String">
         delete from sms_coupon where id = #{id}
     </delete>
 	
@@ -142,5 +117,37 @@ select * from sms_coupon where id=#{id}
             #{id}
         </foreach>
     </delete>
-    
+
+    <sql id="autoEnableCoupon">
+        UPDATE sms_coupon
+        SET publish_count = 1
+        WHERE
+            id = #{id}
+    </sql>
+
+    <sql id="autoDisableCoupon">
+        UPDATE sms_coupon
+        SET publish_count = 0
+        WHERE
+            id = #{id}
+    </sql>
+
+    <update id="autoEnableCouponEvent" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon">
+        CREATE EVENT auto_enable_coupon_${id}
+        ON SCHEDULE AT TIMESTAMP #{startTime}
+        DO <include refid="autoEnableCoupon"/>
+    </update>
+    <update id="autoDisableCouponEvent" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon">
+        CREATE EVENT auto_remove_coupon_${id}
+        ON SCHEDULE AT TIMESTAMP #{endTime}
+        DO <include refid="autoDisableCoupon"/>
+    </update>
+
+    <update id="dropautoDisableEvent" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon">
+        DROP EVENT auto_remove_coupon_${id}
+    </update>
+    <update id="dropautoEnableEvent" parameterType="com.aaa.repast.admin.project.system.coupon.domain.Coupon">
+        DROP EVENT auto_enable_coupon_${id}
+    </update>
+
 </mapper>

@@ -28,20 +28,28 @@ public interface CouponMapper
 	public List<Coupon> selectCouponList(Coupon coupon);
 	
 	/**
-     * 新增优惠卷
+     * 优惠卷自动生效
      * 
      * @param coupon 优惠卷信息
      * @return 结果
      */
-	public int insertCoupon(Coupon coupon);
+	public boolean autoEnableCouponEvent(Coupon coupon);
+
+	/**
+	 * 优惠卷自动失效
+	 *
+	 * @param coupon 优惠卷信息
+	 * @return 结果
+	 */
+	public boolean autoDisableCouponEvent(Coupon coupon);
 	
 	/**
-     * 修改优惠卷
-     * 
+     * 创建优惠卷
+     *
      * @param coupon 优惠卷信息
      * @return 结果
      */
-	public int updateCoupon(Coupon coupon);
+	public int createCoupon(Coupon coupon);
 	
 	/**
      * 删除优惠卷
@@ -49,7 +57,7 @@ public interface CouponMapper
      * @param id 优惠卷ID
      * @return 结果
      */
-	public int deleteCouponById(Long id);
+	public int deleteCouponById(String id);
 	
 	/**
      * 批量删除优惠卷
@@ -58,5 +66,22 @@ public interface CouponMapper
      * @return 结果
      */
 	public int deleteCouponByIds(String[] ids);
-	
+
+	/**
+	 * 移除优惠券自动失效事件
+	 *
+	 * @param id 需要删除的数据ID
+	 * @return
+	 */
+	public boolean dropautoDisableEvent(Coupon coupon);
+
+	/**
+	 * 移除优惠券自动生效事件
+	 *
+	 * @param id 需要删除的数据ID
+	 * @return
+	 */
+	public boolean dropautoEnableEvent(Coupon coupon);
+
+
 }
