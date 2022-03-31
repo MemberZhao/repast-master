@@ -40,7 +40,7 @@
         <jsoup.version>1.11.3</jsoup.version>
         <poi.version>3.17</poi.version>
         <oshi.version>3.9.1</oshi.version>
-        <springboot.version>2.1.1.RELEASE</springboot.version>
+        <springboot.version>2.5.12</springboot.version>
     </properties>
     <dependencyManagement>
 
